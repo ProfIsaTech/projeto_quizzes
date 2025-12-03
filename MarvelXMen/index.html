@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Quem Disse Essa Frase?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz">
+        <h2>QUIZ -  Quiz sobre Marvel e X-Men</h2>
+
+        <form id="quizForm">
+
+            <div class="question">
+                <p>1. "Qual é o verdadeiro nome do Wolverine?."</p>
+                <label><input type="radio" name="q1" value="a">Victor Creed</label>
+                <label><input type="radio" name="q1" value="b">James Howlett</label>
+                <label><input type="radio" name="q1" value="c">Logan</label>
+            </div>
+
+            <div class="question">
+                <p>2. "Quem é o líder original dos X-Men?."</p>
+                <label><input type="radio" name="q2" value="a"> Tony Stark</label>                
+                <label><input type="radio" name="q2" value="b">Professor Xavier </label>
+                <label><input type="radio" name="q2" value="c">Magneto</label>
+            </div>
+
+            <div class="question">
+                <p>3. "Qual é o metal que reveste os ossos de Wolverine?"</p>
+                <label><input type="radio" name="q3" value="a"> Vibranium</label>
+                <label><input type="radio" name="q3" value="b"> Adamantium</label>
+                <label><input type="radio" name="q3" value="c"> Carbonadium</label>
+            </div>
+
+            <div class="question">
+                <p>4. " Em qual HQ os X-Men apareceram pela primeira vez?"</p>
+                <label><input type="radio" name="q4" value="a">X-Men #1 (1963)</label>
+                <label><input type="radio" name="q4" value="b">Avengers #1 (1963)</label>
+                <label><input type="radio" name="q4" value="c">Uncanny X-Men #94 (1975) </label>
+            </div>
+
+            <div class="question">
+                <p>5. "Qual mutante causou a saga “Dinastia M” ao alterar a realidade?"</p>
+                <label><input type="radio" name="q5" value="a"> Jean Grey </label>
+                <label><input type="radio" name="q5" value="b"> Feiticeira Escarlate </label>
+                <label><input type="radio" name="q5" value="c"> Emma Frost</label>
+            </div>
+
+            <button type="button" onclick="verificarRespostas()">Enviar</button>
+
+        </form>
+
+        
+    </div>
+
+    <!--DIV QUE VAI MOSTRAR O RESULTADO NA TELA-->
+    <!--ELA COMEÇA COM DISPLAY NONE E SÓ QUANDO O USUÁRIO FINALIZA O QUIZ ELA APARECE-->
+    <div id="dv_resultado" class="dv_resultado" style="display: none;">
+        <img id="imagem_resultado" width="300" height="300">
+        <p id="resultado"></p>
+        <button style="width: 60%;" onclick="recarregarPagina()">Tentar de Novo</button>
+    </div>
+
+</body>
+</html>
+<script>
+
+    function recarregarPagina(){
+        //Recarrega a página
+        window.location.reload();
+        
+        //Envia o scroll para o topo da página novamente
+        window.scrollTo(0, 0);
+    }
+
+    function verificarRespostas() {
+
+        //Criando um objeto. Um objeto é uma estrutura que armazena pares de chave-valor;
+        // q1 : chave
+        // 'a': valor
+
+        //exemplo: para a chave q3 nós temos o valor 'a'
+        let respostasCorretas = {
+            q1: 'b',
+            q2: 'b',
+            q3: 'b',
+            q4: 'a',
+            q5: 'b'
+        };
+
+        //criamos uma variável para armazenar a ppontuação do usuário
+        let pontuacao = 0;
+
+        //obtemos o formulário para ver as respostas
+        let formulario = document.getElementById('quizForm');
+
+
+        //iteramos sobre a lista de respostas corretas e verificamos cada uma das questões
+        for (let pergunta in respostasCorretas) {
+
+            //armazena a resposta que o usuário deu para essa questão do loop
+            let respostaSelecionada = formulario[pergunta].value;
+
+            //se a resposta do usuário estiver correta com nosso objeto 'respostasCorretas', ele ganha um ponto
+            if (respostaSelecionada == respostasCorretas[pergunta]) {
+                
+                //aumentando a pontuação em +1
+                pontuacao++;
+            }
+        }
+
+        //Mudando o texto que vai aparecer na tela resultado para exibir a quantidade de pontos que o usuário fez
+        document.getElementById('resultado').innerText = 'Você acertou ' + pontuacao + ' de 5 perguntas!';
+
+
+        //VERIFICANDO PARA MOSTRAR UM GIF DIFERENTE PARA CADA QUANTIDADE DE ACERTOS
+        if(pontuacao == 0){
+            //pontuacao == 0 (errou tudo)
+
+            //mudo a imagem para um gif correspondente
+            document.getElementById("imagem_resultado").src = "resources/giphy (1).gif";
+            document.getElementById("dv_resultado").style.display = "flex"; //exibo a tela de resultado
+        }
+        else if(pontuacao == 1 || pontuacao == 2){
+            //acertou 1 ou 2       
+            document.getElementById("imagem_resultado").src = "resources/giphy.gif";
+            document.getElementById("dv_resultado").style.display = "flex";
+        }
+        else if(pontuacao == 3 || pontuacao == 4){
+            //acertou 3 ou 4           
+            document.getElementById("imagem_resultado").src = "resources/giphy (2).gif";
+            document.getElementById("dv_resultado").style.display = "flex";            
+        }
+        else{
+            //pontuacao == 5 (acertou tudo)
+            document.getElementById("imagem_resultado").src = "resources/spiderman-tas-spiderman.gif";
+            document.getElementById("dv_resultado").style.display = "flex";
+        }
+       
+    }
+
+</script>
+

@@ -1,0 +1,108 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", Arial, sans-serif; /*mudando a fonte do site*/
+    background: linear-gradient(135deg, #74ABE2, #5563DE);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+.quiz {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px; /*o máximo de tamanho que a div pode ter*/
+    text-align: center;
+}
+
+h2 {
+    color: #2F3E9E;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.question {
+    margin-bottom: 20px;
+    text-align: left;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+p {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin: 6px 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+/*mudamos a configuração somente para os inputs do tipo radio*/
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+label:hover {
+    background-color: #f0f4ff;
+    transform: scale(1.02);
+}
+
+button {
+    background-color: #2F3E9E;
+    color: #fff;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #1e2d8f;
+    transform: scale(1.03);
+}
+
+#resultado {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 2.2em;
+    margin-top: 8%;
+    color: #ffffff;
+}
+
+.dv_resultado {
+    position: fixed;
+    top: 5%;
+    border-radius: 5%;
+    left: 50%;
+    transform: translateX(-50%); /* centraliza horizontalmente */
+    z-index: 2;
+    width: 60%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* conteúdo começa no topo */  
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    text-align: center;
+    padding-top: 50px; /* dá espaço no topo */
+}

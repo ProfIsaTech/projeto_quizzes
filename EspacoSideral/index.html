@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Quem Disse Essa Frase?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz">
+        <h2>QUIZ - Teste seu conhecimento sobre o Espaço Sideral</h2>
+
+        <form id="quizForm">
+
+            <div class="question">
+                <p>1. "Qual o planeta mais qunte do sistema solar?."</p>
+                <label><input type="radio" name="q1" value="a"> Vênus</label>
+                <label><input type="radio" name="q1" value="b"> Marte</label>
+                <label><input type="radio" name="q1" value="c"> Mercúrio</label>
+            </div>
+
+            <div class="question">
+                <p>2. "Quantos planetas existem no nosso sistema solar?."</p>
+                <label><input type="radio" name="q2" value="a"> 12</label>                
+                <label><input type="radio" name="q2" value="b"> 6</label>
+                <label><input type="radio" name="q2" value="c"> 8</label>
+            </div>
+
+            <div class="question">
+                <p>3. "E quantos planetas anões?"</p>
+                <label><input type="radio" name="q3" value="a"> 25</label>
+                <label><input type="radio" name="q3" value="b"> 5</label>
+                <label><input type="radio" name="q3" value="c"> 127</label>
+            </div>
+
+            <div class="question">
+                <p>4. "A Lua é..."</p>
+                <label><input type="radio" name="q4" value="a"> Um meteoro</label>
+                <label><input type="radio" name="q4" value="b"> Um satélite</label>
+                <label><input type="radio" name="q4" value="c"> Uma bola de neve gigante</label>
+            </div>
+
+            <div class="question">
+                <p>5. "O sol é..."</p>
+                <label><input type="radio" name="q5" value="a"> Uma laranja gigante</label>
+                <label><input type="radio" name="q5" value="b"> Um planeta</label>
+                <label><input type="radio" name="q5" value="c"> Uma estrela</label>
+            </div>
+
+            <div class="question">
+                <p>6. "Qual o diametro do planeta terra?"</p>
+                <label><input type="radio" name="q6" value="a"> 12756.27 km</label>
+                <label><input type="radio" name="q6" value="b"> 270800.35 km</label>
+                <label><input type="radio" name="q6" value="c"> 6792.38</label>
+            </div>
+
+            <button type="button" onclick="verificarRespostas()">Enviar</button>
+
+        </form>
+
+    </div>
+
+    <!--DIV QUE VAI MOSTRAR O RESULTADO NA TELA-->
+    <!--ELA COMEÇA COM DISPLAY NONE E SÓ QUANDO O USUÁRIO FINALIZA O QUIZ ELA APARECE-->
+    <div id="dv_resultado" class="dv_resultado" style="display: none;">
+        <img id="imagem_resultado" width="300" height="300">
+        <p id="resultado"></p>
+        <button style="width: 60%;" onclick="recarregarPagina()">Tentar de Novo</button>
+    </div>
+
+</body>
+</html>
+<script>
+
+    function recarregarPagina(){
+        //Recarrega a página
+        window.location.reload();
+        
+        //Envia o scroll para o topo da página novamente
+        window.scrollTo(0, 0);
+    }
+
+    function verificarRespostas() {
+
+        //Criando um objeto. Um objeto é uma estrutura que armazena pares de chave-valor;
+        // q1 : chave
+        // 'a': valor
+
+        //exemplo: para a chave q3 nós temos o valor 'a'
+        let respostasCorretas = {
+            q1: 'a',
+            q2: 'c',
+            q3: 'b',
+            q4: 'b',
+            q5: 'c',
+            q6: 'a'
+        };
+
+        //criamos uma variável para armazenar a ppontuação do usuário
+        let pontuacao = 0;
+
+        //obtemos o formulário para ver as respostas
+        let formulario = document.getElementById('quizForm');
+
+
+        //iteramos sobre a lista de respostas corretas e verificamos cada uma das questões
+        for (let pergunta in respostasCorretas) {
+
+            //armazena a resposta que o usuário deu para essa questão do loop
+            let respostaSelecionada = formulario[pergunta].value;
+
+            //se a resposta do usuário estiver correta com nosso objeto 'respostasCorretas', ele ganha um ponto
+            if (respostaSelecionada == respostasCorretas[pergunta]) {
+                
+                //aumentando a pontuação em +1
+                pontuacao++;
+            }
+        }
+
+        //Mudando o texto que vai aparecer na tela resultado para exibir a quantidade de pontos que o usuário fez
+        document.getElementById('resultado').innerText = 'Você acertou ' + pontuacao + ' de 6 perguntas!';
+
+
+        //VERIFICANDO PARA MOSTRAR UM GIF DIFERENTE PARA CADA QUANTIDADE DE ACERTOS
+        if(pontuacao == 0){
+            //pontuacao == 0 (errou tudo)
+
+            //mudo a imagem para um gif correspondente
+            document.getElementById("imagem_resultado").src = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHE5cW9nOGxpbGNrNG5tcHI4Ymk1aWF3aGJ4MmsxY21mb29nYmJtbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mdzHqtdkwdeZG/giphy.gif";
+            document.getElementById("dv_resultado").style.display = "flex"; //exibo a tela de resultado
+        }
+        else if(pontuacao == 1 || pontuacao == 2){
+            //acertou 1 ou 2       
+            document.getElementById("imagem_resultado").src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXhobDMyMm52d3Q0dmszYzRjODc4NHBoZzMzdDNvYXQxNjRtcGt2aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/p1sPKlISSvMpa/giphy.gif";
+            document.getElementById("dv_resultado").style.display = "flex";
+        }
+        else if(pontuacao == 3 || pontuacao == 4){
+            //acertou 3 ou 4           
+            document.getElementById("imagem_resultado").src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMW5kN3ppNzBncnYyN292ZHZpaWVmaWNuNm1jd200ZGxjNDNzZ2thdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7TM8kWy04HzcA/giphy.gif";
+            document.getElementById("dv_resultado").style.display = "flex";            
+        }
+        else if(pontuacao == 5 || pontuacao == 6){
+            //acertou 3 ou 4           
+            document.getElementById("imagem_resultado").src = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3dmYW4yaGVkMDliZGw3aG12eHlsbW1sN3JuNnlkc2FmZ2k0eHB1dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/okfvUCpgArv3y/giphy.gif";
+            document.getElementById("dv_resultado").style.display = "flex";            
+        }
+      
+       
+    }
+
+</script>
+

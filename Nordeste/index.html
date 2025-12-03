@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Girias Nordestnas?</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz">
+        <h2>QUIZ - Girias Nordestnas?</h2>
+
+        <form id="quizForm">
+
+            <div class="question">
+                <p>1. Qual o Significado de:"AI DENTRO"?</p>
+                <label><input type="radio" name="q1" value="a"> To dentro</label>
+                <label><input type="radio" name="q1" value="b"> Sai fora</label>
+                <label><input type="radio" name="q1" value="c"> Fofoqueiro</label>
+            </div>
+
+            <div class="question">
+                <p>2. O Que Quer Dizer:"MANGAR"?</p>
+                <label><input type="radio" name="q2" value="a"> Brincar</label>                
+                <label><input type="radio" name="q2" value="b"> Falar mal</label>
+                <label><input type="radio" name="q2" value="c"> Rir</label>
+            </div>
+
+            <div class="question">
+                <p>3. O Que Quer Dizer:"ABESTADO"?</p>
+                <label><input type="radio" name="q3" value="a"> Chato</label>
+                <label><input type="radio" name="q3" value="b"> Trouxa</label>
+                <label><input type="radio" name="q3" value="c"> Legal</label>
+            </div>
+
+            <div class="question">
+                <p>4. O Que Quer Dizer: "MASSA"?</p>
+                <label><input type="radio" name="q4" value="a"> Legal</label>
+                <label><input type="radio" name="q4" value="b"> Péssimo</label>
+                <label><input type="radio" name="q4" value="c"> Bonito</label>
+            </div>
+
+            <div class="question">
+                <p>5.  Qual o Significado de: "BULIÇOSO"</p>
+                <label><input type="radio" name="q5" value="a"> Chato</label>
+                <label><input type="radio" name="q5" value="b"> Quieto</label>
+                <label><input type="radio" name="q5" value="c"> Agitado</label>
+            </div>
+
+            <button type="button" onclick="verificarRespostas()">Enviar</button>
+
+        </form>
+
+        
+    </div>
+
+    <!--DIV QUE VAI MOSTRAR O RESULTADO NA TELA-->
+    <!--ELA COMEÇA COM DISPLAY NONE E SÓ QUANDO O USUÁRIO FINALIZA O QUIZ ELA APARECE-->
+    <div id="dv_resultado" class="dv_resultado" style="display: none;">
+        <img id="imagem_resultado" width="300" height="300">
+        <p id="resultado"></p>
+        <button style="width: 60%;" onclick="recarregarPagina()">Tentar de Novo</button>
+    </div>
+
+</body>
+</html>
+<script>
+
+    function recarregarPagina(){
+        //Recarrega a página
+        window.location.reload();
+        
+        //Envia o scroll para o topo da página novamente
+        window.scrollTo(0, 0);
+    }
+
+    function verificarRespostas() {
+
+        //Criando um objeto. Um objeto é uma estrutura que armazena pares de chave-valor;
+        // q1 : chave
+        // 'a': valor
+
+        //exemplo: para a chave q3 nós temos o valor 'a'
+        let respostasCorretas = {
+            q1: 'b',
+            q2: 'c',
+            q3: 'b',
+            q4: 'a',
+            q5: 'c'
+        };
+
+        //criamos uma variável para armazenar a ppontuação do usuário
+        let pontuacao = 0;
+
+        //obtemos o formulário para ver as respostas
+        let formulario = document.getElementById('quizForm');
+
+
+        //iteramos sobre a lista de respostas corretas e verificamos cada uma das questões
+        for (let pergunta in respostasCorretas) {
+
+            //armazena a resposta que o usuário deu para essa questão do loop
+            let respostaSelecionada = formulario[pergunta].value;
+
+            //se a resposta do usuário estiver correta com nosso objeto 'respostasCorretas', ele ganha um ponto
+            if (respostaSelecionada == respostasCorretas[pergunta]) {
+                
+                //aumentando a pontuação em +1
+                pontuacao++;
+            }
+        }
+
+        //Mudando o texto que vai aparecer na tela resultado para exibir a quantidade de pontos que o usuário fez
+        document.getElementById('resultado').innerText = 'Você acertou ' + pontuacao + ' de 5 perguntas!';
+
+
+        //VERIFICANDO PARA MOSTRAR UM GIF DIFERENTE PARA CADA QUANTIDADE DE ACERTOS
+        if(pontuacao == 0){
+            //pontuacao == 0 (errou tudo)
+
+            //mudo a imagem para um gif correspondente
+            document.getElementById("imagem_resultado").src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXcxZGlpazVqbThnZnM4MWNsMmIwenk0eXloN3k2YjJ2M2VvYXN0MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/spfi6nabVuq5y/giphy.gif";
+            document.getElementById("dv_resultado").style.display = "flex"; //exibo a tela de resultado
+        }
+        else if(pontuacao == 1 || pontuacao == 2){
+            //acertou 1 ou 2       
+            document.getElementById("imagem_resultado").src = "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWxxMmdwb2hqcXFremRxcHJoODhreG5wdjAzOXhvbXNlY2dlZWd5YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ydMZiEb6BbSOk/giphy.gif";
+            document.getElementById("dv_resultado").style.display = "flex";
+        }
+        else if(pontuacao == 3 || pontuacao == 4){
+            //acertou 3 ou 4           
+            document.getElementById("imagem_resultado").src = "https://i.pinimg.com/originals/f3/06/38/f3063826a7e858efff4e7d6e8c38883f.gif";
+            document.getElementById("dv_resultado").style.display = "flex";            
+        }
+        else{
+            //pontuacao == 5 (acertou tudo)
+            document.getElementById("imagem_resultado").src = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnJxNDRqemF2MHppcDB5cWV3NTcwMjM0MGU4OHo3bzRmZGU2MDR0NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26ufdipQqU2lhNA4g/giphy.gif";
+            document.getElementById("dv_resultado").style.display = "flex";
+        }
+       
+    }
+
+</script>
+
